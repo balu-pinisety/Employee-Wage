@@ -5,6 +5,7 @@ public class EmpWageBuilder {
 	public static final int IS_PART_TIME=2;
 	public static final int WAGE_PER_HOUR=20;
 	public static final int MONTH_DAYS=20;
+	public static final int MONTH_HRS=100;
 	
 	public static void main(String[] args) {
 		//Displaying Welcome Message
@@ -12,8 +13,9 @@ public class EmpWageBuilder {
 		//variables
 		int empWorkHrs;
 		int totalWorkHrs=0;
-		//Calculating wage for Monthly
-		for (int i=0; i<MONTH_DAYS;i++){
+		int daysCount=0;
+		//Calculating wage till MONTH_DAYS or MONTH_HRS is reached
+		while (totalWorkHrs<=MONTH_HRS && daysCount<MONTH_DAYS){
 			//Computation using Switch case
 			int empCheck = (int) Math.floor(Math.random()*10)%3;
 			switch (empCheck) {
@@ -33,10 +35,12 @@ public class EmpWageBuilder {
 				}
 			}
 			//Calculating Employee Total Working Hrs
-			totalWorkHrs+=empWorkHrs;
+				totalWorkHrs+=empWorkHrs;
+				//Incrementing the Month working day
+				daysCount++;
 		}
 		//Calculating Employee Monthly Wage
 		int monthWage=totalWorkHrs*WAGE_PER_HOUR;
-		System.out.println("Employee Wage for Month: "+monthWage+" for working hours of "+totalWorkHrs+"\n");
+		System.out.println("Employee Wage for Month of days "+daysCount+" is "+monthWage+" for working hours of "+totalWorkHrs+"\n");
 	}
 }
