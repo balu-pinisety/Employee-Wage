@@ -6,8 +6,8 @@ public class EmpWageBuilder {
 	public static final int WAGE_PER_HOUR=20;
 	public static final int MONTH_DAYS=20;
 	public static final int MONTH_HRS=100;
-	
-	public static void main(String[] args) {
+	static EmpWageBuilder employeeWageObj = new EmpWageBuilder();
+	public static void computeWage() {
 		//Displaying Welcome Message
 		System.out.println("Welcome to Employee Wage Computation Problem\n");
 		//variables
@@ -42,5 +42,9 @@ public class EmpWageBuilder {
 		//Calculating Employee Monthly Wage
 		int monthWage=totalWorkHrs*WAGE_PER_HOUR;
 		System.out.println("Employee Wage for Month of days "+daysCount+" is "+monthWage+" for working hours of "+totalWorkHrs+"\n");
+	}
+	
+	public static void main(String[] args) {
+		employeeWageObj.computeWage();
 	}
 }
