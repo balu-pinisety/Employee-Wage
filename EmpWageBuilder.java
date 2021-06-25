@@ -8,13 +8,13 @@ public class EmpWageBuilder {
 		computeWage("Company1",80, 25, 20);
 		computeWage("Company2",100, 30, 25);
 	}
-	public static void computeWage(String Company, int MONTH_HRS, int MONTH_DAYS, int WAGE_PER_HOUR) {
+	public static void computeWage(String Company, int monthHours, int monthDays, int wageRate) {
 		//variables
 		int empWorkHrs;
 		int totalWorkHrs=0;
 		int daysCount=0;
 		//Calculating wage till MONTH_DAYS or MONTH_HRS is reached
-		while (totalWorkHrs<=MONTH_HRS && daysCount<MONTH_DAYS){
+		while (totalWorkHrs<=monthHours && daysCount<monthDays){
 			//Computation using Switch case
 			int empCheck = (int) Math.floor(Math.random()*10)%3;
 			switch (empCheck) {
@@ -36,7 +36,7 @@ public class EmpWageBuilder {
 				daysCount++;
 		}
 		//Calculating Employee Monthly Wage
-		int monthWage=totalWorkHrs*WAGE_PER_HOUR;
-		System.out.println("Total Employee Wage for "+Company+" is\nMonth Days: "+daysCount+"\nTotal Wage: "+monthWage+"\nWorking hours: "+totalWorkHrs+"\n");
+		int monthWage=totalWorkHrs*wageRate;
+		System.out.println("Total Employee Wage for "+Company+" is "+monthWage+"\n");
 	}
 }
