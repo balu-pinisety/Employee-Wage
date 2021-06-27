@@ -1,38 +1,38 @@
+package com.EmpWageComputing;
+
 public class EmpWageBuilder {
 
 	//Constants
 	public static final int IS_FULL_TIME=1;
 	public static final int IS_PART_TIME=2;
-	private final String company;
-	private final int monthHours;
-	private final int monthDays;
-	private final int wageRate;
-	private int totalWage;
-	public static void main(String[] args) {
-		//Creating objects for class
-		EmpWageBuilder Comp1=new EmpWageBuilder("Company1",80, 25, 20);
-		EmpWageBuilder Comp2=new EmpWageBuilder("Company2",100, 30, 25);
-		//Computing total wage
-		Comp1.computeWage();
-		System.out.println(Comp1);
-		Comp2.computeWage();
-		System.out.println(Comp2);
-	}
-	public EmpWageBuilder(String company, int monthHours, int monthDays, int wageRate) {
-		//Assigning to variables
-		this.company=company;
-		this.monthHours=monthHours;
-		this.monthDays=monthDays;
-		this.wageRate=wageRate;		
+	
+	//variable
+	private int companyNumb = 0;
+	private CompanyWage[] companyArray;
+	
+	public EmpWageBuilder() {
+		companyArray= new CompanyWage[5];
 	}
 	
-	public void computeWage() {
+	private void addCompanyWage(String company, int monthHours, int monthDays, int wageRate) {
+		companyArray[companyNumb]= new CompanyWage(company, monthHours, monthDays, wageRate);
+		companyNumb++;
+	}
+	
+	private void computeWage() {
+		for (int i=0; i<companyNumb;i++) {
+			companyArray[i].setTotalWage(this.computeWage(companyArray[i]));
+			System.out.println(companyArray[i]);
+		}
+	}
+	
+	private int computeWage(CompanyWage companyWage) {
 		//variables
 		int empWorkHrs;
 		int totalWorkHrs=0;
 		int daysCount=0;
-		//Calculating wage till MONTH_DAYS or MONTH_HRS is reached
-		while (totalWorkHrs<=monthHours && daysCount<monthDays){
+		//Calculating wage
+		while (totalWorkHrs<=companyWage.monthHours && daysCount<companyWage.monthDays){
 			//Computation using Switch case
 			int empCheck = (int) Math.floor(Math.random()*10)%3;
 			switch (empCheck) {
@@ -54,13 +54,17 @@ public class EmpWageBuilder {
 				daysCount++;
 		}
 		//Calculating Employee Monthly Wage
-		totalWage=totalWorkHrs*wageRate;
-//		System.out.println("Total Employee Wage for "+Company+" is "+monthWage+"\n");
+		return totalWorkHrs*companyWage.wageRate;
 	}
 	
-	@Override
-	public String toString() {
-		//
-		return "Total Employee Wage for "+company+" is "+totalWage+"\n";
+	public static void main(String[] args) {
+		//Creating objects for class
+		EmpWageBuilder empWageObj=new EmpWageBuilder();
+		empWageObj.addCompanyWage("Company1",80, 25, 20);
+		empWageObj.addCompanyWage("Company2",90, 30, 25);
+		empWageObj.addCompanyWage("Company3",70, 20, 18);
+		//Computing total wage
+		empWageObj.computeWage();
 	}
+	
 }
