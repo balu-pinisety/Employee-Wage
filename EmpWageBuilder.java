@@ -1,6 +1,10 @@
+/**
+ * @author BALU
+ *Purpose : To calculate Monthly Wage for Multiple companies
+ */
 package com.EmpWageComputing;
 
-public class EmpWageBuilder {
+public class EmpWageBuilder implements InterfaceEmpWage {
 
 	//Constants
 	public static final int IS_FULL_TIME=1;
@@ -10,22 +14,38 @@ public class EmpWageBuilder {
 	private int companyNumb = 0;
 	private CompanyWage[] companyArray;
 	
+	/**
+	 * To create array for the companies
+	 */
 	public EmpWageBuilder() {
 		companyArray= new CompanyWage[5];
 	}
 	
-	private void addCompanyWage(String company, int monthHours, int monthDays, int wageRate) {
-		companyArray[companyNumb]= new CompanyWage(company, monthHours, monthDays, wageRate);
-		companyNumb++;
+	/**
+	 *To add Companies and values to array
+	 */
+	@Override
+	public void addCompanyWage(String company, int monthHours, int monthDays, int wageRate) {
+		companyArray[companyNumb++]= new CompanyWage(company, monthHours, monthDays, wageRate);
 	}
 	
-	private void computeWage() {
+	/**
+	 * Calculating wage for Each Company
+	 */
+	@Override
+	public void computeWage() {
 		for (int i=0; i<companyNumb;i++) {
 			companyArray[i].setTotalWage(this.computeWage(companyArray[i]));
 			System.out.println(companyArray[i]);
 		}
 	}
 	
+	
+	/**
+	 * computing wage for the Employee
+	 * @param companyWage
+	 * @return totalWage
+	 */
 	private int computeWage(CompanyWage companyWage) {
 		//variables
 		int empWorkHrs;
@@ -54,9 +74,13 @@ public class EmpWageBuilder {
 				daysCount++;
 		}
 		//Calculating Employee Monthly Wage
-		return totalWorkHrs*companyWage.wageRate;
+		int totalWage= totalWorkHrs*companyWage.wageRate;
+		return totalWage;
 	}
 	
+	/**
+	 * Calls the methods by Objective to calculate wage for given company values 
+	 */
 	public static void main(String[] args) {
 		//Creating objects for class
 		EmpWageBuilder empWageObj=new EmpWageBuilder();
