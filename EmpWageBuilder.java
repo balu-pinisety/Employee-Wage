@@ -4,7 +4,7 @@
  */
 package com.EmpWageComputing;
 import java.util.ArrayList;
-
+import java.util.List;
 public class EmpWageBuilder implements InterfaceEmpWage {
 
 	//Constants
@@ -51,6 +51,7 @@ public class EmpWageBuilder implements InterfaceEmpWage {
 		int empWorkHrs;
 		int totalWorkHrs=0;
 		int daysCount=0;
+		int dailyWage[] = new int[companyWage.monthDays];
 		//Calculating wage
 		while (totalWorkHrs<=companyWage.monthHours && daysCount<companyWage.monthDays){
 			//Computation using Switch case
@@ -69,20 +70,24 @@ public class EmpWageBuilder implements InterfaceEmpWage {
 				}
 			}
 			//Calculating Employee Total Working Hrs
-				totalWorkHrs+=empWorkHrs;
-				//Incrementing the Month working day
-				daysCount++;
+			totalWorkHrs+=empWorkHrs;
+			dailyWage[daysCount]=empWorkHrs*companyWage.wageRate;
+			//Incrementing the Month working day
+			daysCount++;
 		}
+		for(int j=0;j<companyWage.monthDays;j++){
+            int count = j + 1;
+            System.out.println("For Day "+count+" Wage: "+dailyWage[j]);
+        }
 		//Calculating Employee Monthly Wage
 		int totalWage= totalWorkHrs*companyWage.wageRate;
 		return totalWage;
 	}
-	
 	/**
 	 * Calls the methods by Objective to calculate wage for given company values 
 	 */
 	public static void main(String[] args) {
-		System.out.println("Welcome to Employee Wage Computation Problem");
+		System.out.println("Welcome to Employee Wage Computation Problem\n");
 		//Creating objects for class
 		EmpWageBuilder empWageObj=new EmpWageBuilder();
 		empWageObj.addCompanyWage("Company1",80, 25, 20);
