@@ -3,6 +3,7 @@
  *Purpose : To calculate Monthly Wage for Multiple companies
  */
 package com.EmpWageComputing;
+import java.util.ArrayList;
 
 public class EmpWageBuilder implements InterfaceEmpWage {
 
@@ -11,22 +12,21 @@ public class EmpWageBuilder implements InterfaceEmpWage {
 	public static final int IS_PART_TIME=2;
 	
 	//variable
-	private int companyNumb = 0;
-	private CompanyWage[] companyArray;
-	
+	ArrayList<CompanyWage> companies;
 	/**
 	 * To create array for the companies
 	 */
 	public EmpWageBuilder() {
-		companyArray= new CompanyWage[5];
+		companies= new ArrayList<>();
 	}
 	
 	/**
-	 *To add Companies and values to array
+	 *To add Companies and values to array list
 	 */
 	@Override
 	public void addCompanyWage(String company, int monthHours, int monthDays, int wageRate) {
-		companyArray[companyNumb++]= new CompanyWage(company, monthHours, monthDays, wageRate);
+		CompanyWage eachCompany= new CompanyWage(company, monthHours, monthDays, wageRate);
+		companies.add(eachCompany);
 	}
 	
 	/**
@@ -34,9 +34,9 @@ public class EmpWageBuilder implements InterfaceEmpWage {
 	 */
 	@Override
 	public void computeWage() {
-		for (int i=0; i<companyNumb;i++) {
-			companyArray[i].setTotalWage(this.computeWage(companyArray[i]));
-			System.out.println(companyArray[i]);
+		for (CompanyWage eachCompany : companies) {
+			eachCompany.setTotalWage(computeWage(eachCompany));
+			System.out.println(eachCompany);
 		}
 	}
 	
@@ -82,6 +82,7 @@ public class EmpWageBuilder implements InterfaceEmpWage {
 	 * Calls the methods by Objective to calculate wage for given company values 
 	 */
 	public static void main(String[] args) {
+		System.out.println("Welcome to Employee Wage Computation Problem");
 		//Creating objects for class
 		EmpWageBuilder empWageObj=new EmpWageBuilder();
 		empWageObj.addCompanyWage("Company1",80, 25, 20);
